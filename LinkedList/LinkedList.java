@@ -126,6 +126,22 @@ public class LinkedList {
         length++;
     }
 
+    public Node removeFirst() {
+        if (length == 0) {
+            return null;
+        }
+        Node temp = head;
+//        head.next can be already null when it has removed the head as removeFirst so length == 0
+        head = head.next;
+        temp.next = null;
+        length--;
+
+        if(length == 0) {
+            tail = null;
+        }
+        return temp;
+    }
+
 
 }
 
