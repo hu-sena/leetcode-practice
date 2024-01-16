@@ -89,6 +89,30 @@ public class LinkedList {
         length++;
     }
 
+    public Node removeLast() {
+//        case 1: when initial linked list is empty
+        if (length == 0) {
+            return null;
+        }
+        Node temp = head;
+        Node pre = head;
+
+        while (temp.next != null) {
+            pre = temp;
+            temp = temp.next;
+        }
+        tail = pre;
+        length --;
+
+        if (length == 0) {
+            head = null;
+            tail = null;
+        }
+        return temp;
+
+    }
+
+
 }
 
 
