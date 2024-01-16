@@ -112,6 +112,20 @@ public class LinkedList {
 
     }
 
+    public void prepend (int value) {
+//        create new node with value
+        Node newNode = new Node(value);
+//        when linked list is empty
+        if (length == 0) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            newNode.next = head;
+            head = newNode;
+        }
+        length++;
+    }
+
 
 }
 
