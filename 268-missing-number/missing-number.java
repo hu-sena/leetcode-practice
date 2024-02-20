@@ -1,7 +1,8 @@
 class Solution {
     public int missingNumber(int[] nums) {
-        // sort array
-        Arrays.sort(nums);
+        // sort array - contribute to more runtime
+        // NO NEED TO SORT
+        // Arrays.sort(nums);
 
         // using permutation formula: (N * (N + 1)) / 2
         // find expected sum given from N
