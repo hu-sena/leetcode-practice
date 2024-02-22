@@ -4,7 +4,7 @@ class Solution {
         // each element appear twice - using XOR to cancel out 2 elements = 0
 
         // sort array
-        Arrays.sort(nums);
+        // Arrays.sort(nums);
 
         // XOR for [i] + [i + 1] - iterate every 2i: INVALID - out of bound
         // XOR - no order of operation = cumulative XOR every element
