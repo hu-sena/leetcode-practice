@@ -6,8 +6,10 @@ class Solution {
 
         // group by checking if it's anagram of the current str]
         for (String str : strs) {
-            // each string of strs: sort - using helper class
-            String word = generateSortedWord(str);
+            // each string of strs: sort
+            char[] sortedWord = str.toCharArray();
+            Arrays.sort(sortedWord);
+            String word = new String(sortedWord);
             
             // if: key not exist in hashmap - create key (sorted word) + value
             if (!map.containsKey(word)) {
@@ -23,9 +25,4 @@ class Solution {
         return new ArrayList<>(map.values());
     }
 
-    public String generateSortedWord(String s) {
-        char[] sortedWord = s.toCharArray();
-        Arrays.sort(sortedWord);
-        return new String(sortedWord);
-    }
 }
