@@ -7,45 +7,29 @@ class Solution {
 
         // check each row + column has unique number
         for (int row = 0; row < matrix.length; row++) {
+            // reset hashset when enter new row
             numbers.clear();
             for (int column = 0; column < matrix.length; column++) {
                 if (numbers.contains(matrix[row][column])) {
                     return false;
                 }
-
                 numbers.add(matrix[row][column]);
             }
-            
             
         }
 
         for (int row = 0; row < matrix.length; row++) {
+            // reset hashset when enter new row
             numbers.clear();
             for (int column = 0; column < matrix.length; column++) {
-                if (numbers.contains(matrix[row][column])) {
+                if (numbers.contains(matrix[column][row])) {
                     return false;
                 }
-
-                numbers.add(matrix[row][column]);
+                numbers.add(matrix[column][row]);
             }
             
             
         }
-
-        for (int column = 0; column < matrix.length; column++) {
-            numbers.clear();
-            for (int row = 0; row < matrix.length; row++) {
-                if (numbers.contains(matrix[row][column])) {
-                    return false;
-                }
-
-                numbers.add(matrix[row][column]);
-            }
-            
-            
-        }
-
-
 
         return true;
     }
