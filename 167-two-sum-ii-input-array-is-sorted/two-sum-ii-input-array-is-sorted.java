@@ -1,21 +1,28 @@
 class Solution {
     public int[] twoSum(int[] numbers, int target) {
-        // two sum problem: find the difference if exist in hashmap
-        // pair: difference (target - num[i]) and the num[i]
+        // two sum problem: find the difference if exist
+        // return = get the values (indices)
 
-        // return = get the value (index)
-        
+        // METHOD: sorted --> two pointers = O(N) memory space
+        // while: sum of 2 numbers of start + end != target
+        // if sum > target = end--
+        // if sum < target = start++
+        // return the indices since is sum == target when break while loop
 
-        Map<Integer, Integer> map = new HashMap<>();
-
+        int start = 0;
+        int end = numbers.length - 1;
         for (int i = 0; i < numbers.length; i++) {
-            int difference = target - numbers[i];
-            // if hashmap contains difference as key - take the value index: i of nums[i] + i of difference
-            if (map.containsKey(difference)) {
-                return new int[] {map.get(difference)+1, i+1};
+            
+            while (numbers[start] + numbers[end] != target) {
+                if (numbers[start] + numbers[end] > target) {
+                    end--;
+                } else {
+                    start++;
+                }
             }
-            map.put(numbers[i], i);
+            
         }
-        return null;
+        return new int[] {start+1, end+1};
+    
     }
 }
