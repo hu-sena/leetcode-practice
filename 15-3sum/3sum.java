@@ -10,7 +10,6 @@ class Solution {
         // no duplicate from the combinations = hashset
 
         Arrays.sort(nums);
-        List<List<Integer>> result = new ArrayList<>();
         Set<List<Integer>> set = new HashSet<>();
         
         for (int i = 0; i < nums.length; i++) {
@@ -25,9 +24,13 @@ class Solution {
             while (left < right) {
                 if (nums[i] + nums[right] + nums[left] == 0) {
                     set.add(Arrays.asList(nums[i], nums[right], nums[left]));
-                    // skip duplicate
+                    // skip duplicate for num[i]
                     right--;
                     left++;
+
+                    // skip duplicate for left + right
+                    while (left < right && nums[left] == nums[left - 1]) left++;
+                    while (left < right && nums[right] == nums[right + 1]) right--;
                     
                 } else if (nums[i] + nums[right] + nums[left] > 0) {
                     right--;
@@ -37,10 +40,7 @@ class Solution {
             
             }
             
-        
-            
         }
-        result.addAll(set);
-        return result;
+        return new ArrayList<>(set);
     }
 }
