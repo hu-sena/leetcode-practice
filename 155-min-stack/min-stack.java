@@ -4,49 +4,57 @@ class MinStack {
 
     // declare variable outside of constructor so it can be used by other methods
     // create another stack to keep track of min values
-    Stack<Integer> stack;
-    Stack<Integer> minStack;
+    
+    // METHOD: using linked list to keep track min value
 
-    // need to keep track of min element when push, pop, peek
+    // declare a variable to keep track of the head of Node
+    private Node head;
+
+    // create Node class: store data (value + min value), Node next
+    public class Node {
+        int val;
+        int min;
+        Node next;
+
+        private Node (int val, int min, Node next) {
+            this.val = val;
+            this.min = min;
+            this.next = next;
+        }
+
+    }
 
     public MinStack() {
-        // make the variable as instantiated inside constructor
-        this.stack = new Stack<>();
-        this.minStack = new Stack<>();
-        
+
     }
-    
+
     public void push(int val) {
-        // push into min stack if current top min value => current value
-        stack.push(val);
-        if (minStack.isEmpty() || minStack.peek() >= val) {
-            minStack.push(val);
+        // push into the Node as assign the latest Node as head
+        if (head == null) {
+            // no head.next yet
+            head = new Node (val, val, null);
+        } else {
+            // head.next is as the current head before assign to new head 
+            head = new Node (val, Math.min(val, head.min), head);
         }
     }
-    
+
     public void pop() {
-        // if top current value to be removed is the same as current top min value
-        
-        // using equals() instead of == 
-        // REASON: to compare the actual content not the memory address
-        if (stack.peek().equals(minStack.peek())) {
-            minStack.pop();
-        }
-        stack.pop();
+        // transfer new head to head.next
+        head = head.next;
+
     }
-    
+
     public int top() {
-        // using peek() to find the top element (value)
-        return stack.peek();
+        // val of current head
+        return head.val;
     }
-    
+
     public int getMin() {
+        return head.min;
 
-        // cannot use for loop = O(N)
-
-        // return the current top element of min stack
-        return minStack.peek();
     }
+
 }
 
 /**
