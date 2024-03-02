@@ -1,4 +1,7 @@
 class Solution {
+
+    int end;
+    String[] tokens;
     public int evalRPN(String[] tokens) {
         // APPROACH:
         // NOTE: check first if it is operands (nums) or operators
@@ -6,38 +9,40 @@ class Solution {
         // do the operation on latest 2 operands when found the operators
         // pop the operands - then push the result into the stack
 
-        Stack<Integer> stack = new Stack<>();
+        // METHOD: using recursive
+        // no need to use stack
+        // start the iteration at the end of array - then continue to decrement in the recursive method
+        // recursively call the method: to check the operands - SPEACIAL CASE: divide + minus
+        // 
+        // need to use this.tokens to keep track of current token
 
-        int first_operand;
-        int second_operand;
+        end = tokens.length - 1;
+        this.tokens = tokens;
+        return calculate();
 
-        // using string first then convert to integer when push into stack
-        // REASON: operators is not integer
-        for (String token : tokens) {
-            
-            // NOTE: careful on the ordering for '-' & '/' --> second operand should pop first then first operand
-            if (token.equals("+")) {
-                stack.push(stack.pop() + stack.pop());
-            } else if (token.equals("-")) {
-                second_operand = stack.pop();
-                first_operand = stack.pop(); 
-                stack.push(first_operand - second_operand);
-            } else if (token.equals("*")) {
-                stack.push(stack.pop() * stack.pop());
-            } else if (token.equals("/")) {
-                second_operand = stack.pop();
-                first_operand = stack.pop(); 
-                stack.push(first_operand / second_operand);
-            } else {
-                // if not operators - push operands into stack by converting string to integer
-                stack.push(Integer.parseInt(token));
-            }
+    }
 
-        }
+    public int calculate() {
 
-        // return the last item as there is only 1 item left
-        return stack.pop();
+        return switch (tokens[end--]) {
 
+            // using lambda expression: executed first then returned
+            case "+" -> calculate() + calculate();
+            case "-" -> minus(calculate(), calculate());
+            case "*" -> calculate() * calculate();
+            case "/" -> divide(calculate(), calculate());
 
+            // using parseInt to ensure it is valid string integer to primitive int
+            default -> Integer.parseInt(tokens[end+1]);
+        };
+
+    }
+
+    public static int minus (int second, int first) {
+        return first - second;
+    }
+
+    public static int divide (int second, int first) {
+        return first / second;
     }
 }
