@@ -12,26 +12,34 @@ class Solution {
         List<String> brackets = new ArrayList<>();
 
         // pass: the array list to add bracket string + string builder + open + close + n
-        backtracking(brackets, "", 0, 0, n);
+        
+        // METHOD: using n as max length then delete based on condition when backtracking
+        backtracking(brackets, new StringBuilder(), n, n);
         return brackets;
     }
 
-    public void backtracking(List<String> bracket, String str, int open, int close, int length) {
+    public void backtracking(List<String> bracket, final StringBuilder str, int open, int close) {
         // base case: when the amount of pair bracket is completed as in n == 2*n
         // reason: end result of open + close brackets totaled 2*n
         // add the combination to array list
-        if (str.length() == 2*length) {
-            bracket.add(str);
+        if (open == 0 && close == 0) {
+            bracket.add(str.toString());
         }
 
+        // each recursive call - delete the latest parenthesis to explore different path
+
         // recursive condition
-        // 1. open < n: add open
-        if (open < length) {
-            backtracking (bracket, str + "(", open + 1, close, length);
+        // 1. when open > 0: append "("
+        if (open > 0) {
+            str.append("(");
+            backtracking (bracket, str, open - 1, close);
+            str.deleteCharAt(str.length() - 1);
         }
-        // 2. open > close: add close
-        if (open > close) {
-            backtracking (bracket, str + ")", open, close + 1, length);
+        // 2. open < close: append ")"
+        if (open < close) {
+            str.append(")");
+            backtracking (bracket, str, open, close - 1);
+            str.deleteCharAt(str.length() - 1);
         }
     }
 }
